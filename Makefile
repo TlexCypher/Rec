@@ -18,15 +18,15 @@ migrate-add:
 		exit 1; \
 	fi
 migrate-up:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" up
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" up
 migrate-up-one:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" up-by-one
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" up-by-one
 migrate-down:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" down 
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" down 
 migrate-status:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" status
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" status
 migrate-version:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" version 
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" version 
 migrate-reset:
-	docker-compose exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" down-to 0
+	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" down-to 0
 
