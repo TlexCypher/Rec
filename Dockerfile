@@ -2,7 +2,7 @@ FROM golang:1.23.3
 
 WORKDIR /go/src
 
-RUN go install github.com/air-verse/air@latest
+RUN go install github.com/air-verse/air@latest && go install github.com/pressly/goose/v3/cmd/goose@latest
 
 COPY go.mod go.sum ./
 
