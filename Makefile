@@ -1,7 +1,7 @@
 COMPOSE=docker-compose
 COMPOSE_FILE=./compose.yml
 GO_APP_CONTAINER=go-app
-DB_CONTAINER=mysql
+DB_CONTAINER=mysql-db
 
 include ./db/.env
 
