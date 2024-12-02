@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Rec/db"
+	"Vox/db"
 	"fmt"
 	"log"
 	"log/slog"

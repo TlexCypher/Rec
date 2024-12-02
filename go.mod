@@ -1,4 +1,4 @@
-module Rec
+module Vox
 
 go 1.23
 
