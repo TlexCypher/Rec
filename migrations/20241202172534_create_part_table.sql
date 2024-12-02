@@ -9,11 +9,12 @@ CREATE TABLE parts (
     description varchar(256),
     price float,
     quantity_in_stock int,
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    FOREIGN KEY (car_id) REFERENCES cars(id)
 );
 
 -- +goose Down
 -- +goose StatementBegin
 SELECT 'down SQL query';
-DROP TABLE parts;
 -- +goose StatementEnd
+DROP TABLE parts;
