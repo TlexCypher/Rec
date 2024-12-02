@@ -1,12 +1,12 @@
 package main
 
 import (
+	"Rec/db"
 	"fmt"
 	"log"
 	"log/slog"
 	"net/http"
 	"os"
-	"recursion-prj5/db"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"

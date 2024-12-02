@@ -1,4 +1,4 @@
-module recursion-prj5
+module Rec
 
 go 1.23
 
