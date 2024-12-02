@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  go-app:
+    container_name: go-app
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: .
+        target: /go/src/
+    env_file:
+      - ./.env
+    command: sh -c "air -c .air.toml"
+    depends_on:
+      mysql:
+        condition: service_healthy
+  mysql:
+    container_name: mysql-db
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - ./db/.env
+    volumes:
+      - type: volume
+        source: mysql-volume
+        target: /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  mysql-volume:
