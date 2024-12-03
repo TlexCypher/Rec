@@ -1,0 +1,38 @@
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: status code.
+        message:
+          type: string
+          description: error message.
+
+    GetAllUsersResponse:
+      type: object
+      properties:
+        data:
+          type: array 
+          items:
+            type: object
+            x-go-type: entity.User
+          description: list of all users.
+        code:
+          type: integer
+          description: status code.
+        message:
+          type: string
+          description: additional message for response.
+
+    CreateNewUserResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: status code
+        data:
+          type: object
+          x-go-type: valueobject.UserId
+

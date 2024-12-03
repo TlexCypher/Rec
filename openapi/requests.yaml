@@ -1,0 +1,11 @@
+components:
+  schemas:
+    CreateNewUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: name for created user.
+        role:
+          type: string
+          description: role for created user.

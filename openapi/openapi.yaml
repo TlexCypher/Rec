@@ -1,0 +1,65 @@
+openapi: "3.0.3"
+info:
+  title: Vox api
+  version: "1.0"
+servers:
+  - url: http://localhost:{port}
+    description: localhost api, not production
+    variables:
+      port:
+        default: "8000"
+        description: "The port number of go-app."
+paths:
+  /healthcheck:
+    get:
+      summary: Health check
+      operationId: health-check
+      responses:
+        "200":
+          description: health check
+  /users:
+    get:
+      summary: Get all users
+      operationId: get-all-users
+      responses:
+        "200":
+          description: Get list of all registered users.
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/GetAllUsersResponse"
+        "500":
+          description: Failed to fetch users.
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/Error"
+    post:
+      summary: Create a new user
+      operationId: create-new-user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './requests.yaml#/components/schemas/CreateNewUserRequest'
+      responses:
+        "201":
+          description: Create new user.
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/CreateNewUserResponse"
+        "400":
+          description: Invalid request content.
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/Error"
+        "500":
+          description: Failed to create new user.
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/Error"
+

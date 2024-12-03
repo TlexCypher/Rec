@@ -5,12 +5,14 @@ DB_CONTAINER=mysql-db
 
 include ./db/.env
 
-.PHONY: up down restart migrate-add
+.PHONY: build up down restart migrate-add
+build:
+	$(COMPOSE) build
 up:
 	$(COMPOSE) -f $(COMPOSE_FILE) up -d
 down:
 	$(COMPOSE) down
-restart: down up
+restart: down build up
 migrate-add:
 	@if [ -z "$(NAME)" ]; then \
 		echo "Error: NAME is required. Usage: make create-migration NAME=<migration_name>"; \
@@ -29,4 +31,8 @@ migrate-version:
 	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" version 
 migrate-reset:
 	$(COMPOSE) exec $(GO_APP_CONTAINER) goose -dir=./migrations mysql "$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(mysql:$(MYSQL_PORT))/$(MYSQL_DATABASE)" down-to 0
+oapi-gen:
+	$(COMPOSE) exec $(GO_APP_CONTAINER) npx -y @redocly/cli bundle openapi/openapi.yaml -o openapi/oapi-concat.yaml
+	$(COMPOSE) exec $(GO_APP_CONTAINER) oapi-codegen -config ./openapi/config.yaml openapi/oapi-concat.yaml
+	$(COMPOSE) exec $(GO_APP_CONTAINER) rm -rf openapi/oapi-concat.yaml
 
