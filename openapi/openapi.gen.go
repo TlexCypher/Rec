@@ -10,8 +10,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// CreateNewUserRequest defines model for CreateNewUserRequest.
-type CreateNewUserRequest struct {
+// CreateUserRequest defines model for CreateUserRequest.
+type CreateUserRequest struct {
 	// Role role for created user.
 	Role *string `json:"role,omitempty"`
 
@@ -19,8 +19,8 @@ type CreateNewUserRequest struct {
 	Username *string `json:"username,omitempty"`
 }
 
-// CreateNewUserResponse defines model for CreateNewUserResponse.
-type CreateNewUserResponse struct {
+// CreateUserResponse defines model for CreateUserResponse.
+type CreateUserResponse struct {
 	// Code status code
 	Code *int                `json:"code,omitempty"`
 	Data *valueobject.UserId `json:"data,omitempty"`
@@ -48,7 +48,7 @@ type GetAllUsersResponse struct {
 }
 
 // CreateNewUserJSONRequestBody defines body for CreateNewUser for application/json ContentType.
-type CreateNewUserJSONRequestBody = CreateNewUserRequest
+type CreateNewUserJSONRequestBody = CreateUserRequest
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {

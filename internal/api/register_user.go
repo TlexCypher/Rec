@@ -12,7 +12,6 @@ import (
 	"github.com/samber/lo"
 )
 
-/*TODO: Fix with openapi.*/
 func RegisterUser(ctx echo.Context, username, role string) error {
 	usernameVO, err := valueobject.NewUsernameFromString(username)
 	if err != nil {

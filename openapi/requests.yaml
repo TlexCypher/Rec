@@ -1,6 +1,6 @@
 components:
   schemas:
-    CreateNewUserRequest:
+    CreateUserRequest:
       type: object
       properties:
         username:

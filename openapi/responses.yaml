@@ -26,7 +26,7 @@ components:
           type: string
           description: additional message for response.
 
-    CreateNewUserResponse:
+    CreateUserResponse:
       type: object
       properties:
         code:

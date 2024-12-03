@@ -42,14 +42,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './requests.yaml#/components/schemas/CreateNewUserRequest'
+              $ref: './requests.yaml#/components/schemas/CreateUserRequest'
       responses:
         "201":
           description: Create new user.
           content:
             application/json:
               schema:
-                $ref: "./responses.yaml#/components/schemas/CreateNewUserResponse"
+                $ref: "./responses.yaml#/components/schemas/CreateUserResponse"
         "400":
           description: Invalid request content.
           content:
