@@ -21,25 +21,17 @@ type CreateUserRequest struct {
 
 // CreateUserResponse defines model for CreateUserResponse.
 type CreateUserResponse struct {
-	// Code status code
-	Code *int                `json:"code,omitempty"`
 	Data *valueobject.UserId `json:"data,omitempty"`
 }
 
 // Error defines model for Error.
 type Error struct {
-	// Code status code.
-	Code *int `json:"code,omitempty"`
-
 	// Message error message.
 	Message *string `json:"message,omitempty"`
 }
 
 // GetAllUsersResponse defines model for GetAllUsersResponse.
 type GetAllUsersResponse struct {
-	// Code status code.
-	Code *int `json:"code,omitempty"`
-
 	// Data list of all users.
 	Data *[]entity.User `json:"data,omitempty"`
 

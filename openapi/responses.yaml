@@ -3,9 +3,6 @@ components:
     Error:
       type: object
       properties:
-        code:
-          type: integer
-          description: status code.
         message:
           type: string
           description: error message.
@@ -19,9 +16,6 @@ components:
             type: object
             x-go-type: entity.User
           description: list of all users.
-        code:
-          type: integer
-          description: status code.
         message:
           type: string
           description: additional message for response.
@@ -29,9 +23,6 @@ components:
     CreateUserResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: status code
         data:
           type: object
           x-go-type: valueobject.UserId

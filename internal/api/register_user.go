@@ -5,6 +5,7 @@ import (
 	"Vox/internal/domain/valueobject"
 	"Vox/internal/infrastructure"
 	"Vox/internal/usecase"
+	"Vox/openapi"
 	"log/slog"
 	"net/http"
 
@@ -40,9 +41,10 @@ func RegisterUser(ctx echo.Context, username, role string) error {
 		slog.Error("RegisterUser", "Failed to execute usecase. Usecase: RegisterUser", err)
 		return err
 	}
-	return ctx.JSON(http.StatusCreated,
-		map[string]string{
-			"created_user_id": output.Id.String(),
+	return ctx.JSON(
+		http.StatusCreated,
+		openapi.CreateUserResponse{
+			Data: output.Id,
 		},
 	)
 }
