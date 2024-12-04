@@ -2,7 +2,9 @@ package main
 
 import (
 	"Vox/db"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -23,4 +25,5 @@ func main() {
 	e := echo.New()
 	SetupMiddleware(e)
 	SetupServer(e)
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", os.Getenv("PORT"))))
 }

@@ -4,6 +4,7 @@ import (
 	"Vox/internal/api"
 	"Vox/openapi"
 	"log/slog"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -11,7 +12,7 @@ import (
 type VoxSrv struct{}
 
 func (vs *VoxSrv) HealthCheck(ctx echo.Context) error {
-	return nil
+	return ctx.String(http.StatusOK, "HealthCheck")
 }
 
 func (vs *VoxSrv) GetAllUsers(ctx echo.Context) error {
