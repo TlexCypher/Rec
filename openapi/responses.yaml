@@ -7,23 +7,27 @@ components:
           type: string
           description: error message.
 
+    HealthCheckResponse:
+      type: object
+      properties:
+        message:
+          type: string 
+
     GetAllUsersResponse:
       type: object
       properties:
-        data:
+        users:
           type: array 
           items:
             type: object
+            $ref: './components.yaml#/schemas/User'
             x-go-type: entity.User
           description: list of all users.
-        message:
-          type: string
-          description: additional message for response.
 
     CreateUserResponse:
       type: object
       properties:
-        data:
-          type: object
+        userId:
+          type: string 
           x-go-type: valueobject.UserId
 

@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Vox api
+  version: '1.0'
+servers:
+  - url: http://localhost:{port}
+    description: localhost api, not production
+    variables:
+      port:
+        default: '8000'
+        description: The port number of go-app.
+paths:
+  /healthcheck:
+    get:
+      summary: Health check
+      operationId: health-check
+      responses:
+        '200':
+          description: health check
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+  /users:
+    get:
+      summary: Get all users
+      operationId: get-all-users
+      responses:
+        '200':
+          description: Get list of all registered users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllUsersResponse'
+        '500':
+          description: Failed to fetch users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new user
+      operationId: create-new-user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: Create new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '400':
+          description: Invalid request content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Failed to create new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    HealthCheckResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    User:
+      type: object
+      x-go-type: entity.User
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+            - operator
+          description: User's role
+        username:
+          type: string
+          description: User's name
+    GetAllUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/User'
+            x-go-type: entity.User
+          description: list of all users.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: error message.
+    CreateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: name for created user.
+        role:
+          type: string
+          description: role for created user.
+    CreateUserResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          x-go-type: valueobject.UserId

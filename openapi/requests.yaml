@@ -9,3 +9,4 @@ components:
         role:
           type: string
           description: role for created user.
+    

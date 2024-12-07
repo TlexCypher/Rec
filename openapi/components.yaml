@@ -1,0 +1,16 @@
+# User object
+schemas:
+  User:
+    type: object
+    x-go-type: entity.User
+    properties:
+      role:
+        type: string
+        enum:
+          - admin
+          - operator
+        description: User's role
+      username:
+        type: string
+        description: User's name
+

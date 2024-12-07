@@ -35,7 +35,6 @@ migrate-reset:
 oapi-gen:
 	$(COMPOSE) exec $(GO_APP_CONTAINER) npx -y @redocly/cli bundle openapi/openapi.yaml -o openapi/oapi-concat.yaml
 	$(COMPOSE) exec $(GO_APP_CONTAINER) oapi-codegen -config ./openapi/config.yaml openapi/oapi-concat.yaml
-	$(COMPOSE) exec $(GO_APP_CONTAINER) rm -rf openapi/oapi-concat.yaml
 in-db:
 	$(DOCKER) container exec -it $(DB_CONTAINER) bash
 

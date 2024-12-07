@@ -21,7 +21,7 @@ type CreateUserRequest struct {
 
 // CreateUserResponse defines model for CreateUserResponse.
 type CreateUserResponse struct {
-	Data *valueobject.UserId `json:"data,omitempty"`
+	UserId *valueobject.UserId `json:"userId,omitempty"`
 }
 
 // Error defines model for Error.
@@ -32,12 +32,17 @@ type Error struct {
 
 // GetAllUsersResponse defines model for GetAllUsersResponse.
 type GetAllUsersResponse struct {
-	// Data list of all users.
-	Data *[]entity.User `json:"data,omitempty"`
+	// Users list of all users.
+	Users *[]User `json:"users,omitempty"`
+}
 
-	// Message additional message for response.
+// HealthCheckResponse defines model for HealthCheckResponse.
+type HealthCheckResponse struct {
 	Message *string `json:"message,omitempty"`
 }
+
+// User defines model for User.
+type User = entity.User
 
 // CreateNewUserJSONRequestBody defines body for CreateNewUser for application/json ContentType.
 type CreateNewUserJSONRequestBody = CreateUserRequest

@@ -17,6 +17,10 @@ paths:
       responses:
         "200":
           description: health check
+          content:
+            application/json:
+              schema:
+                $ref: "./responses.yaml#/components/schemas/HealthCheckResponse"
   /users:
     get:
       summary: Get all users
