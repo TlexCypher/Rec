@@ -7,9 +7,9 @@ import (
 )
 
 type User struct {
-	id       valueobject.UserId
-	role     valueobject.Role
-	username valueobject.Username
+	Id       valueobject.UserId
+	Role     valueobject.Role
+	Username valueobject.Username
 }
 
 func NewUser(role valueobject.Role, username valueobject.Username) (User, error) {
@@ -19,28 +19,28 @@ func NewUser(role valueobject.Role, username valueobject.Username) (User, error)
 		return User{}, fmt.Errorf("Failed to create new user.")
 	}
 	return User{
-		id:       id,
-		role:     role,
-		username: username,
+		Id:       id,
+		Role:     role,
+		Username: username,
 	}, nil
 }
 
 func (e *User) IdVO() valueobject.UserId {
-	return e.id
+	return e.Id
 }
 
 func (e *User) RoleVO() valueobject.Role {
-	return e.role
+	return e.Role
 }
 
 func (e *User) SetRoleVO(newRole valueobject.Role) {
-	e.role = newRole
+	e.Role = newRole
 }
 
 func (e *User) UsernameVO() valueobject.Username {
-	return e.username
+	return e.Username
 }
 
 func (e *User) SetUsernameVO(newUsername valueobject.Username) {
-	e.username = newUsername
+	e.Username = newUsername
 }

@@ -10,6 +10,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var DBConn *DB
+
 type Config struct {
 	DSN string
 }
@@ -23,10 +25,10 @@ func loadEnv() error {
 	return godotenv.Load("./db/.env")
 }
 
-func Open() (*DB, error) {
+func Open() error {
 	if err := loadEnv(); err != nil {
 		slog.Error("db.loadEnv()", "Failed to load environment variables.", err.Error())
-		return nil, err
+		return err
 	}
 
 	config := Config{
@@ -47,11 +49,16 @@ func Open() (*DB, error) {
 
 	if err != nil {
 		slog.Error("db.gorm.Open()", "Failed to connect with mysql db docker instance.")
-		return nil, err
+		return err
 	}
-
-	return &DB{
+	DBConn = &DB{
 		Config: config,
 		Conn:   db,
-	}, nil
+	}
+	return nil
+}
+
+/*Connectionを貼り直さない && wireしたい*/
+func NewDBConn() *DB {
+	return DBConn
 }

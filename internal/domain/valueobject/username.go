@@ -10,7 +10,7 @@ type Username struct {
 	LiteralBase[string]
 }
 
-func (e *Username) Value() string {
+func (e Username) Value() string {
 	return e.v
 }
 
@@ -27,8 +27,8 @@ func NewUsernameFromString(src string) (Username, error) {
 	return e, nil
 }
 
-func (e *Username) Validate() error {
+func (e Username) Validate() error {
 	return validation.ValidateStruct(&e,
-		validation.Field(validation.Required, validation.Length(6, 15)),
+		validation.Field(&e.v, validation.Required, validation.Length(6, 15)),
 	)
 }

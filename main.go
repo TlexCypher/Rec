@@ -23,6 +23,10 @@ func main() {
 		log.Fatalf("Failed to load environment variables.")
 	}
 	e := echo.New()
+	err := db.Open()
+	if err != nil {
+		log.Fatalf("Failed to connect with mysql instance.")
+	}
 	SetupMiddleware(e)
 	SetupServer(e)
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", os.Getenv("PORT"))))

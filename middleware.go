@@ -1,8 +1,6 @@
 package main
 
 import (
-	"Vox/db"
-	"log/slog"
 	"net/http"
 	"os"
 
@@ -18,16 +16,4 @@ func SetupMiddleware(e *echo.Echo) {
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPatch,
 			http.MethodPost, http.MethodDelete, http.MethodOptions},
 	}))
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			conn, err := db.Open()
-			if err != nil {
-				slog.Error("Failed to get database connection with mysql docker instance.")
-				return c.String(http.StatusInternalServerError, err.Error())
-			}
-			config := Config{Conn: conn}
-			c.Set("config", config)
-			return next(c)
-		}
-	})
 }

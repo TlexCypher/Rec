@@ -64,7 +64,7 @@ func (e PrimaryIdBase) Value() (driver.Value, error) {
 }
 
 func (e PrimaryIdBase) MarshalJSON() ([]byte, error) {
-	return []byte(e.value), nil
+	return json.Marshal(e.value)
 }
 
 func (e *PrimaryIdBase) UnmarshalJSON(data []byte) error {

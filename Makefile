@@ -37,4 +37,6 @@ oapi-gen:
 	$(COMPOSE) exec $(GO_APP_CONTAINER) oapi-codegen -config ./openapi/config.yaml openapi/oapi-concat.yaml
 in-db:
 	$(DOCKER) container exec -it $(DB_CONTAINER) bash
+gorm-gen:
+	$(COMPOSE) exec $(GO_APP_CONTAINER) go run ./cmd/gorm-gen/
 

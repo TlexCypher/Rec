@@ -1,9 +1,9 @@
 package api
 
 import (
+	wiregen "Vox/cmd/wire-gen"
 	"Vox/internal/domain/entity"
 	"Vox/internal/domain/valueobject"
-	"Vox/internal/infrastructure"
 	"Vox/internal/usecase"
 	"Vox/openapi"
 	"log/slog"
@@ -31,7 +31,7 @@ func RegisterUser(ctx echo.Context, username, role string) error {
 		return err
 	}
 	u := usecase.RegisterUser{
-		UserRepository: lo.ToPtr(infrastructure.UserRepositoryImpl{}),
+		UserRepository: lo.ToPtr(wiregen.InitUserRepositoryImpl()),
 	}
 	input := usecase.RegisterUserInput{
 		User: user,
@@ -44,7 +44,7 @@ func RegisterUser(ctx echo.Context, username, role string) error {
 	return ctx.JSON(
 		http.StatusCreated,
 		openapi.CreateUserResponse{
-			Data: output.Id,
+			UserId: output.Id,
 		},
 	)
 }

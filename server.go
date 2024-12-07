@@ -15,7 +15,7 @@ type VoxSrv struct{}
 func (vs *VoxSrv) HealthCheck(ctx echo.Context) error {
 	healthCheck := "HealthCheck OK!"
 	return ctx.JSON(http.StatusOK,
-		openapi.HealthCheckResponse{Data: lo.ToPtr(healthCheck)})
+		openapi.HealthCheckResponse{Message: lo.ToPtr(healthCheck)})
 }
 
 func (vs *VoxSrv) GetAllUsers(ctx echo.Context) error {
@@ -28,7 +28,7 @@ func (vs *VoxSrv) CreateNewUser(ctx echo.Context) error {
 		slog.Error("Failed to bind to openapi.CreateUserRequest.")
 		return err
 	}
-	return api.RegisterUser(ctx, *req.Role, *req.Username)
+	return api.RegisterUser(ctx, *req.Username, *req.Role)
 }
 
 func SetupServer(e *echo.Echo) *echo.Echo {

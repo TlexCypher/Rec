@@ -19,12 +19,12 @@ func NewRoleFromString(src string) (Role, error) {
 	return e, nil
 }
 
-func (e *Role) Value() string {
+func (e Role) Value() string {
 	return e.v
 }
 
-func (e *Role) Validate() error {
-	return validation.ValidateStruct(e,
+func (e Role) Validate() error {
+	return validation.ValidateStruct(&e,
 		validation.Field(&e.v,
 			validation.Required,
 			validation.By(func(value interface{}) error {
