@@ -61,6 +61,10 @@ func (ur *UserRepositoryImpl) FindById(userId valueobject.UserId) (*entity.User,
 	return lo.ToPtr(modelToEntity(m)), nil
 }
 
+func (ur *UserRepositoryImpl) FindAll() (*[]entity.User, error) {
+	return nil, nil
+}
+
 func (ur *UserRepositoryImpl) DeleteById(userId valueobject.UserId) error {
 	u, err := ur.FindById(userId)
 	if err != nil {

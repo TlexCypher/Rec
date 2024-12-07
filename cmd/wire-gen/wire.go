@@ -1,7 +1,6 @@
-//go:build wireinject
 // +build wireinject
 
-package wiregen
+package di 
 
 import (
 	"Vox/db"
@@ -10,7 +9,7 @@ import (
 	"github.com/google/wire"
 )
 
-func InitUserRepositoryImpl() infrastructure.UserRepositoryImpl {
+func InitUserRepository() infrastructure.UserRepositoryImpl {
 	wire.Build(infrastructure.NewUserRepositoryImpl, db.NewDBConn)
 	return infrastructure.UserRepositoryImpl{}
 }

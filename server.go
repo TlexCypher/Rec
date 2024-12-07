@@ -19,7 +19,7 @@ func (vs *VoxSrv) HealthCheck(ctx echo.Context) error {
 }
 
 func (vs *VoxSrv) GetAllUsers(ctx echo.Context) error {
-	return nil
+	return api.GetAllUsers(ctx)
 }
 
 func (vs *VoxSrv) CreateNewUser(ctx echo.Context) error {

@@ -18,7 +18,8 @@ WORKDIR /go/src
 
 RUN go install github.com/air-verse/air@latest && \
     go install github.com/pressly/goose/v3/cmd/goose@latest && \
-    go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
+    go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest && \
+    go install github.com/google/wire/cmd/wire@latest
 
 RUN apt-get update && apt-get install -y curl && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \

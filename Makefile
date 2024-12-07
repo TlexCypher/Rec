@@ -39,4 +39,6 @@ in-db:
 	$(DOCKER) container exec -it $(DB_CONTAINER) bash
 gorm-gen:
 	$(COMPOSE) exec $(GO_APP_CONTAINER) go run ./cmd/gorm-gen/
+wire-gen:
+	$(COMPOSE) exec $(GO_APP_CONTAINER) wire ./cmd/wire-gen/
 
