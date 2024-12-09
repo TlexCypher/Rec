@@ -1,5 +1,7 @@
+//go:build wireinject
 // +build wireinject
-package di 
+
+package di
 
 import (
 	"Vox/db"
@@ -14,6 +16,6 @@ func InitUserRepository() infrastructure.UserRepositoryImpl {
 }
 
 func InitInventoryRepository() infrastructure.InventoryRepositoryImpl {
-    wire.Build(infrastructure.NewInventoryRepositoryImpl, db.NewDBConn)
-    return infrastructure.InventoryRepositoryImpl{}
+	wire.Build(infrastructure.NewInventoryRepositoryImpl, db.NewDBConn)
+	return infrastructure.InventoryRepositoryImpl{}
 }
