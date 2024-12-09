@@ -66,6 +66,68 @@ paths:
             application/json:
               schema:
                 $ref: "./responses.yaml#/components/schemas/Error"
+  /category:
+    get:
+      summary: Get all categories.
+      responses:
+        '200':
+          description: Success to get all categories.
+          content:
+            application/json:
+              schema:
+                $ref: './responses.yaml#/components/schemas/GetCategoriesResponse'
+        '500':
+          description: Failed to get all categories
+          content:
+            application/json:
+              schema:
+                $ref: './responses.yaml#/components/schemas/Error'
+    post:
+      summary: Create a new category.
+      operationId: create-new-category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './requests.yaml#/components/schemas/CreateCategoryRequest'
+      responses:
+        '201':
+          description: Success to create a new category.
+          content:
+            application/json:
+              schema: 
+                $ref: './responses.yaml#/components/schemas/CreateCategoryResponse'
+        '500':
+          description: Failed to create a new category.
+          content:
+            application/json:
+              schema: 
+                $ref: './responses.yaml#/components/schemas/Error'
+
+  /inventory:
+    post:
+      summary: Create a new inventory.
+      operationId: create-new-inventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './requests.yaml#/components/schemas/CreateInventoryRequest'
+      responses:
+        '201':
+          description: Success to create a new inventory.
+          content:
+            application/json:
+              schema: 
+                $ref: './responses.yaml#/components/schemas/CreateInventoryResponse'
+        '500':
+          description: Failed to create a new inventory.
+          content:
+            application/json:
+              schema: 
+                $ref: './responses.yaml#/components/schemas/Error'
 
   /inventory/{userId}:  
     get:

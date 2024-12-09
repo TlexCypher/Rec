@@ -66,6 +66,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /category:
+    get:
+      summary: Get all categories.
+      responses:
+        '200':
+          description: Success to get all categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCategoriesResponse'
+        '500':
+          description: Failed to get all categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new category.
+      operationId: create-new-category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+      responses:
+        '201':
+          description: Success to create a new category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCategoryResponse'
+        '500':
+          description: Failed to create a new category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /inventory:
+    post:
+      summary: Create a new inventory.
+      operationId: create-new-inventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInventoryRequest'
+      responses:
+        '201':
+          description: Success to create a new inventory.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInventoryResponse'
+        '500':
+          description: Failed to create a new inventory.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /inventory/{userId}:
     get:
       summary: Get inventory information for a specific user.
@@ -143,6 +204,62 @@ components:
         userId:
           type: string
           x-go-type: valueobject.UserId
+    Category:
+      type: object
+      x-go-type: dto.Category
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - name
+    GetCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Category'
+    CreateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Category name
+      required:
+        - name
+    CreateCategoryResponse:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          x-go-type: valueobject.CategoryId
+    CreateInventoryRequest:
+      type: object
+      properties:
+        productCode:
+          type: string
+        productName:
+          type: string
+        remainingQuantity:
+          type: integer
+        remarks:
+          type: array
+          items:
+            type: string
+      required:
+        - productCode
+        - productName
+        - remainingQuantity
+    CreateInventoryResponse:
+      type: object
+      properties:
+        inventory:
+          type: string
+          x-go-type: valueobject.InventoryId
     Inventory:
       type: object
       x-go-type: dto.Inventory

@@ -10,3 +10,29 @@ components:
           type: string
           description: role for created user.
     
+    CreateCategoryRequest:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: Category name
+      required:
+        - name
+
+    CreateInventoryRequest:
+      type: object
+      properties:
+        productCode:
+          type: string
+        productName:
+          type: string
+        remainingQuantity:
+          type: integer
+        remarks:
+          type: array
+          items:
+            type: string
+      required:
+        - productCode
+        - productName
+        - remainingQuantity

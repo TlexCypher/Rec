@@ -14,7 +14,7 @@ import (
 	"github.com/samber/lo"
 )
 
-func GetInventoryForEachUser(ctx echo.Context, userId string) error {
+func GetInventoriesForEachUser(ctx echo.Context, userId string) error {
 	userIdVO, err := valueobject.NewUserIdFromString(userId)
 	if err != nil {
 		slog.Error("GetInventoryForEachUser", "Failed to get inventories for each user.", err)

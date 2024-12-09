@@ -13,6 +13,33 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// Category defines model for Category.
+type Category = dto.Category
+
+// CreateCategoryRequest defines model for CreateCategoryRequest.
+type CreateCategoryRequest struct {
+	// Name Category name
+	Name string `json:"name"`
+}
+
+// CreateCategoryResponse defines model for CreateCategoryResponse.
+type CreateCategoryResponse struct {
+	CategoryId *valueobject.CategoryId `json:"categoryId,omitempty"`
+}
+
+// CreateInventoryRequest defines model for CreateInventoryRequest.
+type CreateInventoryRequest struct {
+	ProductCode       string    `json:"productCode"`
+	ProductName       string    `json:"productName"`
+	RemainingQuantity int       `json:"remainingQuantity"`
+	Remarks           *[]string `json:"remarks,omitempty"`
+}
+
+// CreateInventoryResponse defines model for CreateInventoryResponse.
+type CreateInventoryResponse struct {
+	Inventory *valueobject.InventoryId `json:"inventory,omitempty"`
+}
+
 // CreateUserRequest defines model for CreateUserRequest.
 type CreateUserRequest struct {
 	// Role role for created user.
@@ -39,6 +66,11 @@ type GetAllUsersResponse struct {
 	Users *[]User `json:"users,omitempty"`
 }
 
+// GetCategoriesResponse defines model for GetCategoriesResponse.
+type GetCategoriesResponse struct {
+	Categories *[]Category `json:"categories,omitempty"`
+}
+
 // GetInventoriesResponse defines model for GetInventoriesResponse.
 type GetInventoriesResponse struct {
 	// Inventories list of all inventories.
@@ -56,14 +88,29 @@ type Inventory = dto.Inventory
 // User defines model for User.
 type User = dto.User
 
+// CreateNewCategoryJSONRequestBody defines body for CreateNewCategory for application/json ContentType.
+type CreateNewCategoryJSONRequestBody = CreateCategoryRequest
+
+// CreateNewInventoryJSONRequestBody defines body for CreateNewInventory for application/json ContentType.
+type CreateNewInventoryJSONRequestBody = CreateInventoryRequest
+
 // CreateNewUserJSONRequestBody defines body for CreateNewUser for application/json ContentType.
 type CreateNewUserJSONRequestBody = CreateUserRequest
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+	// Get all categories.
+	// (GET /category)
+	GetCategory(ctx echo.Context) error
+	// Create a new category.
+	// (POST /category)
+	CreateNewCategory(ctx echo.Context) error
 	// Health check
 	// (GET /healthcheck)
 	HealthCheck(ctx echo.Context) error
+	// Create a new inventory.
+	// (POST /inventory)
+	CreateNewInventory(ctx echo.Context) error
 	// Get inventory information for a specific user.
 	// (GET /inventory/{userId})
 	GetInventoryUserId(ctx echo.Context, userId string) error
@@ -80,12 +127,39 @@ type ServerInterfaceWrapper struct {
 	Handler ServerInterface
 }
 
+// GetCategory converts echo context to params.
+func (w *ServerInterfaceWrapper) GetCategory(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.GetCategory(ctx)
+	return err
+}
+
+// CreateNewCategory converts echo context to params.
+func (w *ServerInterfaceWrapper) CreateNewCategory(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CreateNewCategory(ctx)
+	return err
+}
+
 // HealthCheck converts echo context to params.
 func (w *ServerInterfaceWrapper) HealthCheck(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshaled arguments
 	err = w.Handler.HealthCheck(ctx)
+	return err
+}
+
+// CreateNewInventory converts echo context to params.
+func (w *ServerInterfaceWrapper) CreateNewInventory(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CreateNewInventory(ctx)
 	return err
 }
 
@@ -151,7 +225,10 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
+	router.GET(baseURL+"/category", wrapper.GetCategory)
+	router.POST(baseURL+"/category", wrapper.CreateNewCategory)
 	router.GET(baseURL+"/healthcheck", wrapper.HealthCheck)
+	router.POST(baseURL+"/inventory", wrapper.CreateNewInventory)
 	router.GET(baseURL+"/inventory/:userId", wrapper.GetInventoryUserId)
 	router.GET(baseURL+"/users", wrapper.GetAllUsers)
 	router.POST(baseURL+"/users", wrapper.CreateNewUser)

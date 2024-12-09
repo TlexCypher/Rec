@@ -30,6 +30,22 @@ components:
           type: string 
           x-go-type: valueobject.UserId
 
+    GetCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            $ref: './components.yaml#/schemas/Category'
+
+    CreateCategoryResponse:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          x-go-type: valueobject.CategoryId
+
     GetInventoriesResponse:
       type: object
       properties:
@@ -39,6 +55,15 @@ components:
             type: object
             $ref: './components.yaml#/schemas/Inventory'
           description: list of all inventories.
+
+    CreateInventoryResponse:
+      type: object
+      properties:
+        inventory:
+          type: string
+          x-go-type: valueobject.InventoryId
+
+
 
 
 

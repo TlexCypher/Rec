@@ -17,6 +17,17 @@ schemas:
       - id
       - username
       - role
+  Category:
+    type: object
+    x-go-type: dto.Category
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    required:
+      - id
+      - name
 
   Inventory:
     type: object

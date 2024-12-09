@@ -136,7 +136,6 @@ func NewInventoryId() (InventoryId, error) {
 			value: i.String(),
 		},
 	}, nil
-
 }
 
 func NewInventoryIdFromString(src string) (InventoryId, error) {
@@ -157,6 +156,47 @@ func NewInventoryIdFromString(src string) (InventoryId, error) {
 	}
 	return e, nil
 
+}
+
+type CategoryId struct {
+	PrimaryIdBase
+}
+
+func (c *CategoryId) Validate() error {
+	return nil
+}
+
+func NewCategoryId() (CategoryId, error) {
+	c, err := uuid.NewV7()
+	if err != nil {
+		slog.Error("CategoryId", "Failed to generate new category id.", err)
+		return CategoryId{}, err
+	}
+	return CategoryId{
+		PrimaryIdBase{
+			UUID:  c,
+			value: c.String(),
+		},
+	}, nil
+}
+
+func NewCategoryIdFromString(src string) (CategoryId, error) {
+	p, err := newPrimaryIdBaseFromString(src)
+	if err != nil {
+		slog.Error("CategoryId", "Failed to generate new category id.")
+		return CategoryId{}, err
+	}
+	e := CategoryId{
+		PrimaryIdBase{
+			UUID:  p.UUID,
+			value: p.value,
+		},
+	}
+	if err := e.Validate(); err != nil {
+		slog.Error("CategoryId", "Failed to validate new generated category id.")
+		return CategoryId{}, err
+	}
+	return e, nil
 }
 
 /*InventoryId is just simple uuid. So, no validation rule is necesary.*/
