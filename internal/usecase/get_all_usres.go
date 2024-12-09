@@ -3,6 +3,7 @@ package usecase
 import (
 	"Vox/internal/domain"
 	"Vox/internal/domain/entity"
+	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -10,7 +11,7 @@ import (
 type GetAllUsersInput struct{}
 
 type GetAllUsersOutput struct {
-	Users []entity.User
+	Users *[]entity.User
 }
 
 type GetAllUsers struct {
@@ -18,5 +19,12 @@ type GetAllUsers struct {
 }
 
 func (u *GetAllUsers) Do(ctx echo.Context) (GetAllUsersOutput, error) {
-	return GetAllUsersOutput{}, nil
+	users, err := u.UserRepository.FindAll()
+	if err != nil {
+		log.Println("Failed to get all users.")
+		return GetAllUsersOutput{}, err
+	}
+	return GetAllUsersOutput{
+		Users: users,
+	}, nil
 }

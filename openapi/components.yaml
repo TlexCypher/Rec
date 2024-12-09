@@ -1,8 +1,7 @@
-# User object
 schemas:
   User:
     type: object
-    x-go-type: entity.User
+    x-go-type: dto.User
     properties:
       role:
         type: string
@@ -13,4 +12,7 @@ schemas:
       username:
         type: string
         description: User's name
+    required:
+      - username
+      - role
 

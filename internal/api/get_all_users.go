@@ -2,6 +2,8 @@ package api
 
 import (
 	di "Vox/cmd/wire-gen"
+	"Vox/internal/domain/entity"
+	"Vox/internal/presentation/dto"
 	"Vox/internal/usecase"
 	"Vox/openapi"
 	"fmt"
@@ -20,6 +22,8 @@ func GetAllUsers(ctx echo.Context) error {
 		return fmt.Errorf("Failed to get all registered users.")
 	}
 	return ctx.JSON(http.StatusOK, openapi.GetAllUsersResponse{
-		Users: &out.Users,
+		Users: lo.ToPtr(lo.Map(*out.Users, func(user entity.User, index int) dto.User {
+			return dto.TransferToDto(user)
+		})),
 	})
 }

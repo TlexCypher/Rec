@@ -75,7 +75,7 @@ components:
           type: string
     User:
       type: object
-      x-go-type: entity.User
+      x-go-type: dto.User
       properties:
         role:
           type: string
@@ -86,6 +86,9 @@ components:
         username:
           type: string
           description: User's name
+      required:
+        - username
+        - role
     GetAllUsersResponse:
       type: object
       properties:
@@ -94,7 +97,6 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/User'
-            x-go-type: entity.User
           description: list of all users.
     Error:
       type: object

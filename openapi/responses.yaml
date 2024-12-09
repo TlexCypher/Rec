@@ -21,7 +21,6 @@ components:
           items:
             type: object
             $ref: './components.yaml#/schemas/User'
-            x-go-type: entity.User
           description: list of all users.
 
     CreateUserResponse:

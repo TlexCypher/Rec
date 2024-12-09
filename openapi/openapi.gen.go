@@ -4,8 +4,8 @@
 package openapi
 
 import (
-	"Vox/internal/domain/entity"
 	"Vox/internal/domain/valueobject"
+	"Vox/internal/presentation/dto"
 
 	"github.com/labstack/echo/v4"
 )
@@ -42,7 +42,7 @@ type HealthCheckResponse struct {
 }
 
 // User defines model for User.
-type User = entity.User
+type User = dto.User
 
 // CreateNewUserJSONRequestBody defines body for CreateNewUser for application/json ContentType.
 type CreateNewUserJSONRequestBody = CreateUserRequest
