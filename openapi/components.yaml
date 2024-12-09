@@ -3,16 +3,56 @@ schemas:
     type: object
     x-go-type: dto.User
     properties:
+      id: 
+        type: string
+      username:
+        type: string
       role:
         type: string
         enum:
           - admin
           - operator
         description: User's role
-      username:
-        type: string
-        description: User's name
     required:
+      - id
       - username
       - role
 
+  Inventory:
+    type: object
+    x-go-type: dto.Inventory
+    properties:
+      id:
+        type: string
+        description: inventory local id
+      inventoryId:
+        type: string
+        description: inventory global id
+      categories:
+        type: array 
+        items:
+          type: string
+      productCode:
+        type: string
+      productName:
+        type: string
+      remarks:
+        type: array
+        items:
+          type: string
+      remainingQuantity:
+        type: integer
+      representProductName:
+        type: string
+      representProductCode:
+        type: string
+    required:
+      - id
+      - inventoryId
+      - categories
+      - productCode
+      - productName
+      - remarks
+      - remainingQuantity
+      - representProductName
+      - representProductCode

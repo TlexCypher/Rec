@@ -30,3 +30,15 @@ components:
           type: string 
           x-go-type: valueobject.UserId
 
+    GetInventoriesResponse:
+      type: object
+      properties:
+        inventories: 
+          type: array
+          items:
+            type: object
+            $ref: './components.yaml#/schemas/Inventory'
+          description: list of all inventories.
+
+
+

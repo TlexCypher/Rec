@@ -2,17 +2,17 @@ package dto
 
 import (
 	"Vox/internal/domain/entity"
-	"fmt"
 )
 
 type User struct {
+	Id       string `json:"id"`
 	Username string `json:"username"`
 	Role     string `json:"role"`
 }
 
-func TransferToDto(e entity.User) User {
-	fmt.Println(e)
+func TransferToUserDto(e entity.User) User {
 	return User{
+		Id:       e.Id.String(),
 		Username: e.Username.Value(),
 		Role:     e.Role.Value(),
 	}

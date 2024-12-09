@@ -119,3 +119,47 @@ func NewUserIdFromString(src string) (UserId, error) {
 func (u *UserId) Validate() error {
 	return nil
 }
+
+type InventoryId struct {
+	PrimaryIdBase
+}
+
+func NewInventoryId() (InventoryId, error) {
+	i, err := uuid.NewV7()
+	if err != nil {
+		slog.Error("InventoryId", "Failed to generate new inventory id.", err)
+		return InventoryId{}, err
+	}
+	return InventoryId{
+		PrimaryIdBase{
+			UUID:  i,
+			value: i.String(),
+		},
+	}, nil
+
+}
+
+func NewInventoryIdFromString(src string) (InventoryId, error) {
+	p, err := newPrimaryIdBaseFromString(src)
+	if err != nil {
+		slog.Error("InventoryId", "Failed to generate new inventoryId.", err)
+		return InventoryId{}, err
+	}
+	e := InventoryId{
+		PrimaryIdBase{
+			UUID:  p.UUID,
+			value: p.value,
+		},
+	}
+	if err := e.Validate(); err != nil {
+		slog.Error("InventoryId", "Failed to validate new generated inventoryId.", err)
+		return InventoryId{}, err
+	}
+	return e, nil
+
+}
+
+/*InventoryId is just simple uuid. So, no validation rule is necesary.*/
+func (i *InventoryId) Validate() error {
+	return nil
+}

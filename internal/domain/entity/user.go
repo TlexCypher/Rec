@@ -16,7 +16,7 @@ func NewUser(role valueobject.Role, username valueobject.Username) (User, error)
 	id, err := valueobject.NewUserId()
 	if err != nil {
 		slog.Error("User", "Failed to create new user.", err)
-		return User{}, fmt.Errorf("Failed to create new user.")
+		return User{}, fmt.Errorf("Failed to create new user.\n")
 	}
 	return User{
 		Id:       id,

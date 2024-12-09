@@ -67,3 +67,25 @@ paths:
               schema:
                 $ref: "./responses.yaml#/components/schemas/Error"
 
+  /inventory/{userId}:  
+    get:
+      summary: Get inventory information for a specific user. 
+      parameters:
+        - name: userId
+          in: path
+          schema: 
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Success to get inventory information for a specific user.
+          content:
+            application/json:
+              schema:
+                $ref: './responses.yaml#/components/schemas/GetInventoriesResponse'
+        '500':
+          description: Failed to get inventories.
+          content:
+            application/json:
+              schema:
+                $ref: './responses.yaml#/components/schemas/Error'

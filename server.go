@@ -31,6 +31,10 @@ func (vs *VoxSrv) CreateNewUser(ctx echo.Context) error {
 	return api.RegisterUser(ctx, *req.Username, *req.Role)
 }
 
+func (vs *VoxSrv) GetInventoryUserId(ctx echo.Context, userId string) error {
+	return api.GetInventoryForEachUser(ctx, userId)
+}
+
 func SetupServer(e *echo.Echo) *echo.Echo {
 	server := VoxSrv{}
 	openapi.RegisterHandlers(e, &server)

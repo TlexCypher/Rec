@@ -6,8 +6,11 @@ package openapi
 import (
 	"Vox/internal/domain/valueobject"
 	"Vox/internal/presentation/dto"
+	"fmt"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/oapi-codegen/runtime"
 )
 
 // CreateUserRequest defines model for CreateUserRequest.
@@ -36,10 +39,19 @@ type GetAllUsersResponse struct {
 	Users *[]User `json:"users,omitempty"`
 }
 
+// GetInventoriesResponse defines model for GetInventoriesResponse.
+type GetInventoriesResponse struct {
+	// Inventories list of all inventories.
+	Inventories *[]Inventory `json:"inventories,omitempty"`
+}
+
 // HealthCheckResponse defines model for HealthCheckResponse.
 type HealthCheckResponse struct {
 	Message *string `json:"message,omitempty"`
 }
+
+// Inventory defines model for Inventory.
+type Inventory = dto.Inventory
 
 // User defines model for User.
 type User = dto.User
@@ -52,6 +64,9 @@ type ServerInterface interface {
 	// Health check
 	// (GET /healthcheck)
 	HealthCheck(ctx echo.Context) error
+	// Get inventory information for a specific user.
+	// (GET /inventory/{userId})
+	GetInventoryUserId(ctx echo.Context, userId string) error
 	// Get all users
 	// (GET /users)
 	GetAllUsers(ctx echo.Context) error
@@ -71,6 +86,22 @@ func (w *ServerInterfaceWrapper) HealthCheck(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshaled arguments
 	err = w.Handler.HealthCheck(ctx)
+	return err
+}
+
+// GetInventoryUserId converts echo context to params.
+func (w *ServerInterfaceWrapper) GetInventoryUserId(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "userId" -------------
+	var userId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "userId", ctx.Param("userId"), &userId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter userId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.GetInventoryUserId(ctx, userId)
 	return err
 }
 
@@ -121,6 +152,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	}
 
 	router.GET(baseURL+"/healthcheck", wrapper.HealthCheck)
+	router.GET(baseURL+"/inventory/:userId", wrapper.GetInventoryUserId)
 	router.GET(baseURL+"/users", wrapper.GetAllUsers)
 	router.POST(baseURL+"/users", wrapper.CreateNewUser)
 

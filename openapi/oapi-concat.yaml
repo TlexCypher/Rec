@@ -66,6 +66,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /inventory/{userId}:
+    get:
+      summary: Get inventory information for a specific user.
+      parameters:
+        - name: userId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Success to get inventory information for a specific user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetInventoriesResponse'
+        '500':
+          description: Failed to get inventories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     HealthCheckResponse:
@@ -77,16 +99,18 @@ components:
       type: object
       x-go-type: dto.User
       properties:
+        id:
+          type: string
+        username:
+          type: string
         role:
           type: string
           enum:
             - admin
             - operator
           description: User's role
-        username:
-          type: string
-          description: User's name
       required:
+        - id
         - username
         - role
     GetAllUsersResponse:
@@ -119,3 +143,50 @@ components:
         userId:
           type: string
           x-go-type: valueobject.UserId
+    Inventory:
+      type: object
+      x-go-type: dto.Inventory
+      properties:
+        id:
+          type: string
+          description: inventory local id
+        inventoryId:
+          type: string
+          description: inventory global id
+        categories:
+          type: array
+          items:
+            type: string
+        productCode:
+          type: string
+        productName:
+          type: string
+        remarks:
+          type: array
+          items:
+            type: string
+        remainingQuantity:
+          type: integer
+        representProductName:
+          type: string
+        representProductCode:
+          type: string
+      required:
+        - id
+        - inventoryId
+        - categories
+        - productCode
+        - productName
+        - remarks
+        - remainingQuantity
+        - representProductName
+        - representProductCode
+    GetInventoriesResponse:
+      type: object
+      properties:
+        inventories:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Inventory'
+          description: list of all inventories.

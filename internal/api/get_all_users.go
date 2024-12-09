@@ -23,7 +23,7 @@ func GetAllUsers(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, openapi.GetAllUsersResponse{
 		Users: lo.ToPtr(lo.Map(*out.Users, func(user entity.User, index int) dto.User {
-			return dto.TransferToDto(user)
+			return dto.TransferToUserDto(user)
 		})),
 	})
 }

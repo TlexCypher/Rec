@@ -18,3 +18,9 @@ func InitUserRepository() infrastructure.UserRepositoryImpl {
 	userRepositoryImpl := infrastructure.NewUserRepositoryImpl(dbDB)
 	return userRepositoryImpl
 }
+
+func InitInventoryRepository() infrastructure.InventoryRepositoryImpl {
+	dbDB := db.NewDBConn()
+	inventoryRepositoryImpl := infrastructure.NewInventoryRepositoryImpl(dbDB)
+	return inventoryRepositoryImpl
+}
