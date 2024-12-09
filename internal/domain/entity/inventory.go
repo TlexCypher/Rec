@@ -8,14 +8,14 @@ import (
 
 type Inventory struct {
 	Id                valueobject.InventoryId
-	Categories        []valueobject.Category
+	Categories        []Category
 	ProductCode       valueobject.ProductCode
 	ProductName       valueobject.ProductName
 	Remarks           []valueobject.Remark
 	RemainingQuantity valueobject.RemainingQuantity
 }
 
-func NewInventory(categories []valueobject.Category,
+func NewInventory(categories []Category,
 	productCode valueobject.ProductCode,
 	productName valueobject.ProductName,
 	remarks []valueobject.Remark,
@@ -41,7 +41,7 @@ func (e *Inventory) IdVO() valueobject.InventoryId {
 	return e.Id
 }
 
-func (e *Inventory) CategoriesVO() []valueobject.Category {
+func (e *Inventory) CategoriesEntity() []Category {
 	return e.Categories
 }
 

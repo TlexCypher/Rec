@@ -25,8 +25,8 @@ func TransferToInventoryDto(
 ) Inventory {
 	return Inventory{
 		Id: e.Id.String(),
-		Categories: lo.Map(e.CategoriesVO(), func(category valueobject.Category, index int) string {
-			return category.Value()
+		Categories: lo.Map(e.CategoriesEntity(), func(category entity.Category, index int) string {
+			return category.NameVO().Value()
 		}),
 		ProductCode: e.ProductCodeVO().Value(),
 		ProductName: e.ProductNameVO().Value(),

@@ -24,3 +24,9 @@ func InitInventoryRepository() infrastructure.InventoryRepositoryImpl {
 	inventoryRepositoryImpl := infrastructure.NewInventoryRepositoryImpl(dbDB)
 	return inventoryRepositoryImpl
 }
+
+func InitCategoryRepository() infrastructure.CategoryRepositoryImpl {
+	dbDB := db.NewDBConn()
+	categoryRepositoryImpl := infrastructure.NewCategoryRepositoryImpl(dbDB)
+	return categoryRepositoryImpl
+}

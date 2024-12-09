@@ -19,3 +19,8 @@ func InitInventoryRepository() infrastructure.InventoryRepositoryImpl {
 	wire.Build(infrastructure.NewInventoryRepositoryImpl, db.NewDBConn)
 	return infrastructure.InventoryRepositoryImpl{}
 }
+
+func InitCategoryRepository() infrastructure.CategoryRepositoryImpl {
+	wire.Build(infrastructure.NewCategoryRepositoryImpl, db.NewDBConn)
+	return infrastructure.CategoryRepositoryImpl{}
+}

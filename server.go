@@ -39,6 +39,7 @@ func (vs *VoxSrv) CreateNewInventory(ctx echo.Context) error {
 	}
 	return api.RegisterInventory(
 		ctx,
+		req.Categories,
 		req.ProductName,
 		req.ProductCode,
 		req.RemainingQuantity,

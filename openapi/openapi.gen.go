@@ -29,6 +29,7 @@ type CreateCategoryResponse struct {
 
 // CreateInventoryRequest defines model for CreateInventoryRequest.
 type CreateInventoryRequest struct {
+	Categories        []string  `json:"categories"`
 	ProductCode       string    `json:"productCode"`
 	ProductName       string    `json:"productName"`
 	RemainingQuantity int       `json:"remainingQuantity"`
